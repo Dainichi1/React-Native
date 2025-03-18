@@ -26,12 +26,12 @@ export default function App() {
         />
         <Button title="Add Goal" onPress={addGoalHandler} />
       </View>
-      {/* ✅ Rimosso il secondo View nidificato */}
+      prova1
       <View style={styles.goalsContainer}>
         {courseGoal.map((goal, index) => (
-          <Text key={index} style={styles.goalItem}>
-            {goal}
-          </Text>
+          <View key={index} style={styles.goalItem}>
+            <Text style={styles.goalText}>{goal}</Text>
+          </View>
         ))}
       </View>
     </View>
@@ -68,10 +68,12 @@ const styles = StyleSheet.create({
   },
 
   goalItem: {
-    fontSize: 16,
-    marginVertical: 5,
-    backgroundColor: "#f5f5f5",
+    margin: 8,
     padding: 8,
     borderRadius: 5,
+    backgroundColor: "#5e0acc",
+  },
+  goalText: {
+    color: "white",
   },
 });
