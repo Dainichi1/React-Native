@@ -13,6 +13,8 @@ export default function App() {
     ]);
   }
 
+  function deleteGoalHandler() {}
+
   return (
     <View style={styles.appContainer}>
       <GoalInput onAddGoal={addGoalHandler} />
@@ -20,7 +22,12 @@ export default function App() {
         <FlatList
           data={courseGoal}
           renderItem={(itemData) => {
-            return <GoalItem text={itemData.item.text} />;
+            return (
+              <GoalItem
+                text={itemData.item.text}
+                onDeleteItem={deleteGoalHandler}
+              />
+            );
           }}
           alwaysBounceVertical={false}
         />
