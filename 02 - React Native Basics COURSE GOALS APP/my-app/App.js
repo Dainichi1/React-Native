@@ -3,12 +3,18 @@ import { useState } from "react";
 
 export default function App() {
   const [enteredGoalText, setEnteredGoalText] = useState("");
+  const [courseGoal, setCourseGoals] = useState([]);
 
   function goalInputHandler(enteredText) {
     setEnteredGoalText(enteredText);
   }
 
-  function addGoalHandler() {}
+  function addGoalHandler() {
+    setCourseGoals((currentCourseGoals) => [
+      ...currentCourseGoals,
+      enteredGoalText,
+    ]);
+  }
 
   return (
     <View style={styles.appContainer}>
@@ -20,8 +26,13 @@ export default function App() {
         />
         <Button title="Add Goal" onPress={addGoalHandler} />
       </View>
+      {/* ✅ Rimosso il secondo View nidificato */}
       <View style={styles.goalsContainer}>
-        <Text>List of goals...</Text>
+        {courseGoal.map((goal, index) => (
+          <Text key={index} style={styles.goalItem}>
+            {goal}
+          </Text>
+        ))}
       </View>
     </View>
   );
@@ -54,5 +65,13 @@ const styles = StyleSheet.create({
 
   goalsContainer: {
     flex: 5,
+  },
+
+  goalItem: {
+    fontSize: 16,
+    marginVertical: 5,
+    backgroundColor: "#f5f5f5",
+    padding: 8,
+    borderRadius: 5,
   },
 });
