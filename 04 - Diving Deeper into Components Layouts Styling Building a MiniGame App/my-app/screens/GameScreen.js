@@ -42,10 +42,12 @@ function GameScreen({ userNumber, onGameOver }) {
     }
 
     if (direction === "lower") {
-      maxBoundary = currentGuess;
+      maxBoundary = currentGuess; // Limita l'intervallo massimo
     } else {
-      minBoundary = currentGuess + 1;
+      minBoundary = currentGuess + 1; // Limita l'intervallo minimo
     }
+
+    // Adesso generiamo un numero SOLO tra minBoundary e maxBoundary
     const newRndNumber = generateRandomBetween(
       minBoundary,
       maxBoundary,
