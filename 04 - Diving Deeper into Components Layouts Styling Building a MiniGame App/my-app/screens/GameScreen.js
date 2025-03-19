@@ -8,13 +8,13 @@ import Instructiontext from "../components/ui/InstructionText";
 import { Ionicons } from "@expo/vector-icons";
 
 function generateRandomBetween(min, max, exclude) {
-  const rndNum = Math.floor(Math.random() * (max - min)) + min;
+  let rndNum;
 
-  if (rndNum === exclude) {
-    return generateRandomBetween(min, max, exclude);
-  } else {
-    return rndNum;
-  }
+  do {
+    rndNum = Math.floor(Math.random() * (max - min)) + min;
+  } while (rndNum === exclude);
+
+  return rndNum;
 }
 
 let minBoundary = 1;
@@ -29,6 +29,11 @@ function GameScreen({ userNumber, onGameOver }) {
       onGameOver();
     }
   }, [currentGuess, userNumber, onGameOver]);
+
+  useEffect(() => {
+    minBoundary = 1;
+    maxBoundary = 100;
+  }, []);
 
   function nextGuessHandler(direction) {
     if (
