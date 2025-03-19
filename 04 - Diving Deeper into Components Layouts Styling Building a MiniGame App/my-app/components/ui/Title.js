@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "white",
     borderWidth: 2,
-    borderColor: "white ",
+    borderColor: "white",
     padding: 12,
   },
 });
