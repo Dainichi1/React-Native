@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
     padding: 24,
-    justifyContent: "center",
-    alignContent: "center",
+    justifyContent: "center", // Centra verticalmente
+    alignItems: "center", // Centra orizzontalmente
   },
 
   imageContainer: {
@@ -43,6 +43,8 @@ const styles = StyleSheet.create({
     borderColor: Colors.primary800,
     overflow: "hidden",
     margin: 36,
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   image: {
@@ -53,7 +55,7 @@ const styles = StyleSheet.create({
   summaryText: {
     fontFamily: "open-sans",
     fontSize: 24,
-    textAlign: "center",
+    textAlign: "center", // Assicura il testo centrato
     marginBottom: 24,
   },
 
