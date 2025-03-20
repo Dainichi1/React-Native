@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 60,
+    alignItems: "center",
   },
 
   instructionText: {
