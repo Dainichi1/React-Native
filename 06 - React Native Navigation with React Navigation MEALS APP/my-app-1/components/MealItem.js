@@ -5,14 +5,18 @@ import {
   Image,
   StyleSheet,
   Platform,
-  duration,
-  affordability,
-  complexity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import MealDetails from "./MealDetails";
 
-function MealItem({ id, title, imageUrl }) {
+function MealItem({
+  id,
+  title,
+  imageUrl,
+  duration,
+  affordability,
+  complexity,
+}) {
   const navigation = useNavigation();
 
   function selectMealHandler() {

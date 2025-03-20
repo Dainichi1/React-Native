@@ -1,17 +1,20 @@
-import { Text, View, StyleSheet, Image, ScrollView } from "react-native";
-import { MEALS } from "../data/dummy-data";
-import MealDetails from "../components/MealDetails";
-import Subtitle from "../components/MealDetail/Subtitle";
-import List from "../components/MealDetail/List";
 import { useLayoutEffect } from "react";
+import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
+
 import IconButton from "../components/IconButton";
+import List from "../components/MealDetail/List";
+import Subtitle from "../components/MealDetail/Subtitle";
+import MealDetails from "../components/MealDetails";
+import { MEALS } from "../data/dummy-data";
 
 function MealDetailScreen({ route, navigation }) {
   const mealId = route.params.mealId;
 
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
-  function headerButtonPressHandler() {}
+  function headerButtonPressHandler() {
+    console.log("Pressed!");
+  }
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -55,12 +58,10 @@ const styles = StyleSheet.create({
   rootContainer: {
     marginBottom: 32,
   },
-
   image: {
     width: "100%",
     height: 350,
   },
-
   title: {
     fontWeight: "bold",
     fontSize: 24,
@@ -68,16 +69,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "white",
   },
-
   detailText: {
     color: "white",
   },
-
-  listContainer: {
-    width: "80%",
-  },
-
   listOuterContainer: {
     alignItems: "center",
+  },
+  listContainer: {
+    width: "80%",
   },
 });
