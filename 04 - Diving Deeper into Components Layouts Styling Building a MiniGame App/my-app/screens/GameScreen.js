@@ -28,7 +28,7 @@ function GameScreen({ userNumber, onGameOver }) {
 
   useEffect(() => {
     if (currentGuess === userNumber) {
-      onGameOver();
+      onGameOver(guessRounds.length);
     }
   }, [currentGuess, userNumber, onGameOver]);
 
@@ -49,12 +49,11 @@ function GameScreen({ userNumber, onGameOver }) {
     }
 
     if (direction === "lower") {
-      maxBoundary = currentGuess; // Limita l'intervallo massimo
+      maxBoundary = currentGuess;
     } else {
-      minBoundary = currentGuess + 1; // Limita l'intervallo minimo
+      minBoundary = currentGuess + 1;
     }
 
-    // Adesso generiamo un numero SOLO tra minBoundary e maxBoundary
     const newRndNumber = generateRandomBetween(
       minBoundary,
       maxBoundary,
@@ -88,7 +87,7 @@ function GameScreen({ userNumber, onGameOver }) {
           </View>
         </View>
       </Card>
-      <View>
+      <View style={styles.listContainer}>
         <FlatList
           data={guessRounds}
           renderItem={(itemData) => (
@@ -122,5 +121,10 @@ const styles = StyleSheet.create({
 
   buttonContainer: {
     flex: 1,
+  },
+
+  listContainer: {
+    flex: 1,
+    padding: 24,
   },
 });
