@@ -29,7 +29,7 @@ const DUMMY_EXPENSES = [
   },
   {
     id: "e5",
-    description: "A book",
+    description: "Another book",
     amount: 29.99,
     date: new Date("2021-05-25"),
   },
@@ -40,7 +40,7 @@ function ExpensesOutput({ expenses, expensesPeriod }) {
     <View>
       <ExpensesSummary expenses={DUMMY_EXPENSES} periodName={expensesPeriod} />
 
-      <ExpensesList />
+      <ExpensesList expenses={DUMMY_EXPENSES} />
     </View>
   );
 }
