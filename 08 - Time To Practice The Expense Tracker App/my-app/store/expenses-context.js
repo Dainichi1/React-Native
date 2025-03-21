@@ -1,4 +1,5 @@
 import { createContext, useReducer } from "react";
+import uuid from "react-native-uuid";
 
 const DUMMY_EXPENSES = [
   {
@@ -85,8 +86,9 @@ export const ExpensesContext = createContext({
 function expenseReducer(state, action) {
   switch (action.type) {
     case "ADD":
-      const id = uuidv4(); // Genera un ID univoco sicuro
+      const id = uuid.v4(); // Genera un ID univoco compatibile con React Native
       return [{ ...action.payload, id }, ...state];
+
     case "UPDATE":
       const updatableExpenseIndex = state.findIndex(
         (expense) => expense.id === action.payload.id
