@@ -1,4 +1,4 @@
-import { Text } from "react-native ";
+import { Text } from "react-native";
 
 function AllExpenses() {
   return <Text>AllExpenses Screen</Text>;
