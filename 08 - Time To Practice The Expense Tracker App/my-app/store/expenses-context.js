@@ -15,7 +15,6 @@ function expensesReducer(state, action) {
     case "SET":
       const inverted = action.payload.reverse();
       return inverted;
-
     case "UPDATE":
       const updatableExpenseIndex = state.findIndex(
         (expense) => expense.id === action.payload.id
@@ -39,12 +38,12 @@ function ExpensesContextProvider({ children }) {
     dispatch({ type: "ADD", payload: expenseData });
   }
 
-  function deleteExpense(id) {
-    dispatch({ type: "DELETE", payload: id });
+  function setExpenses(expenses) {
+    dispatch({ type: "SET", payload: expenses });
   }
 
-  function setExpense(id) {
-    dispatch({ type: "SET", payload: expense });
+  function deleteExpense(id) {
+    dispatch({ type: "DELETE", payload: id });
   }
 
   function updateExpense(id, expenseData) {
@@ -53,8 +52,8 @@ function ExpensesContextProvider({ children }) {
 
   const value = {
     expenses: expensesState,
+    setExpenses: setExpenses,
     addExpense: addExpense,
-    setExpense: setExpense,
     deleteExpense: deleteExpense,
     updateExpense: updateExpense,
   };
