@@ -1,7 +1,7 @@
+import { useCallback, useLayoutEffect, useState } from "react";
+import { Alert, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import { StyleSheet } from "react-native";
-import { useState, useLayoutEffect, useCallback } from "react";
-import { Alert } from "react-native";
+
 import IconButton from "../components/UI/IconButton";
 
 function Map({ navigation }) {
@@ -57,7 +57,7 @@ function Map({ navigation }) {
     >
       {selectedLocation && (
         <Marker
-          title="Pick Location "
+          title="Picked Location"
           coordinate={{
             latitude: selectedLocation.lat,
             longitude: selectedLocation.lng,

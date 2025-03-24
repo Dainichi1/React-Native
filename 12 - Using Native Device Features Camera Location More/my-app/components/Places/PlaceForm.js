@@ -1,16 +1,14 @@
 import { useCallback, useState } from "react";
-import { ScrollView, Text, TextInput, View, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+
 import { Colors } from "../../constants/colors";
+import { Place } from "../../models/place";
+import Button from "../UI/Button";
 import ImagePicker from "./ImagePicker";
 import LocationPicker from "./LocationPicker";
-import Button from "../UI/Button";
-import { Place } from "../../models/place";
-
-import { Alert } from "react-native";
 
 function PlaceForm({ onCreatePlace }) {
   const [enteredTitle, setEnteredTitle] = useState("");
-
   const [selectedImage, setSelectedImage] = useState();
   const [pickedLocation, setPickedLocation] = useState();
 
@@ -21,15 +19,12 @@ function PlaceForm({ onCreatePlace }) {
   function takeImageHandler(imageUri) {
     setSelectedImage(imageUri);
   }
+
   const pickLocationHandler = useCallback((location) => {
     setPickedLocation(location);
   }, []);
 
   function savePlaceHandler() {
-    if (!pickedLocation) {
-      console.log("Nessuna location selezionata, ma continuo.");
-    }
-
     const placeData = new Place(enteredTitle, selectedImage, pickedLocation);
     onCreatePlace(placeData);
   }

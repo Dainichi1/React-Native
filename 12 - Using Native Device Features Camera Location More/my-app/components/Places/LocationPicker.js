@@ -1,25 +1,29 @@
-import { Alert, View, StyleSheet, Text, Image } from "react-native";
-import OutlinedButton from "../UI/OutlineButton";
-import { Colors } from "../../constants/colors";
+import { useEffect, useState } from "react";
+import { Alert, View, StyleSheet, Image, Text } from "react-native";
 import {
   getCurrentPositionAsync,
   useForegroundPermissions,
   PermissionStatus,
 } from "expo-location";
-import { useState } from "react";
-import { getMapPreview, getAddress } from "../../util/location";
 import {
   useNavigation,
   useRoute,
   useIsFocused,
 } from "@react-navigation/native";
-import { useEffect } from "react";
+
+import { Colors } from "../../constants/colors";
+import OutlinedButton from "../UI/OutlinedButton";
+import { getAddress, getMapPreview } from "../../util/location";
 
 function LocationPicker({ onPickLocation }) {
+  const [pickedLocation, setPickedLocation] = useState();
+  const isFocused = useIsFocused();
+
   const navigation = useNavigation();
   const route = useRoute();
 
-  const isFocused = useIsFocused();
+  const [locationPermissionInformation, requestPermission] =
+    useForegroundPermissions();
 
   useEffect(() => {
     if (isFocused && route.params) {
@@ -27,7 +31,6 @@ function LocationPicker({ onPickLocation }) {
         lat: route.params.pickedLat,
         lng: route.params.pickedLng,
       };
-
       setPickedLocation(mapPickedLocation);
     }
   }, [route, isFocused]);
@@ -46,16 +49,12 @@ function LocationPicker({ onPickLocation }) {
     handleLocation();
   }, [pickedLocation, onPickLocation]);
 
-  const [pickedLocation, setPickedLocation] = useState();
-
-  const [locationPermissionInformation, requestPermission] =
-    useForegroundPermissions();
-
   async function verifyPermissions() {
     if (
       locationPermissionInformation.status === PermissionStatus.UNDETERMINED
     ) {
       const permissionResponse = await requestPermission();
+
       return permissionResponse.granted;
     }
 
@@ -66,6 +65,8 @@ function LocationPicker({ onPickLocation }) {
       );
       return false;
     }
+
+    return true;
   }
 
   async function getLocationHandler() {
@@ -92,7 +93,9 @@ function LocationPicker({ onPickLocation }) {
     locationPreview = (
       <Image
         style={styles.image}
-        source={{ uri: getMapPreview(pickedLocation.lat, pickedLocation.lng) }}
+        source={{
+          uri: getMapPreview(pickedLocation.lat, pickedLocation.lng),
+        }}
       />
     );
   }
@@ -123,17 +126,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: Colors.primary100,
     borderRadius: 4,
+    overflow: "hidden",
   },
-
   actions: {
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
   },
-
   image: {
     width: "100%",
     height: "100%",
-    borderRadius: 4,
+    // borderRadius: 4
   },
 });

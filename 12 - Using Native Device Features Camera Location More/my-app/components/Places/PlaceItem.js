@@ -1,4 +1,5 @@
-import { Image, Pressable, Text, View, StyleSheet } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+
 import { Colors } from "../../constants/colors";
 
 function PlaceItem({ place, onSelect }) {
@@ -49,5 +50,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: Colors.gray700,
   },
-  address: { fontSize: 12, color: Colors.gray700 },
+  address: {
+    fontSize: 12,
+    color: Colors.gray700,
+  },
 });
