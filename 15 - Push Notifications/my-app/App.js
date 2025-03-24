@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
-import { StyleSheet, Button, View } from "react-native";
+import { StyleSheet, Button, View, Alert } from "react-native";
 import * as Notifications from "expo-notifications";
 
 Notifications.setNotificationHandler({
@@ -14,12 +14,34 @@ Notifications.setNotificationHandler({
 });
 
 export default function App() {
+  // Funzione per gestire permessi e token
+  async function configurePushNotifications() {
+    const { status } = await Notifications.getPermissionsAsync();
+    let finalStatus = status;
+
+    if (finalStatus !== "granted") {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+
+    if (finalStatus !== "granted") {
+      Alert.alert(
+        "Permission required",
+        "Push notifications need the appropriate permissions."
+      );
+      return;
+    }
+
+    const pushTokenData = await Notifications.getExpoPushTokenAsync();
+    console.log("Push Token:", pushTokenData.data);
+  }
+
+  // useEffect che chiama configurePushNotifications all'avvio
   useEffect(() => {
-    Notifications.getExpoPushTokenAsync().then((pushTokenData) => {
-      console.log(pushTokenData); // oppure console.log(pushTokenData.data)
-    });
+    configurePushNotifications();
   }, []);
 
+  // Listener per ricezione e risposta
   useEffect(() => {
     const subscription1 = Notifications.addNotificationReceivedListener(
       (notification) => {
@@ -29,6 +51,7 @@ export default function App() {
         console.log(userName);
       }
     );
+
     const subscription2 = Notifications.addNotificationResponseReceivedListener(
       (response) => {
         console.log("NOTIFICATION RESPONSE RECEIVED");
