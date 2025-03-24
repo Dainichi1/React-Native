@@ -7,7 +7,7 @@ import {
   PermissionStatus,
 } from "expo-location";
 import { useState } from "react";
-import { getMapPreview } from "../../util/location";
+import { getMapPreview, getAddress } from "../../util/location";
 import {
   useNavigation,
   useRoute,

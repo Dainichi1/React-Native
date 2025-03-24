@@ -4,6 +4,9 @@ import { Colors } from "../../constants/colors";
 import ImagePicker from "./ImagePicker";
 import LocationPicker from "./LocationPicker";
 import Button from "../UI/Button";
+import { Place } from "../../models/place";
+
+import { Alert } from "react-native";
 
 function PlaceForm({ onCreatePlace }) {
   const [enteredTitle, setEnteredTitle] = useState("");
@@ -23,6 +26,10 @@ function PlaceForm({ onCreatePlace }) {
   }, []);
 
   function savePlaceHandler() {
+    if (!pickedLocation) {
+      console.log("Nessuna location selezionata, ma continuo.");
+    }
+
     const placeData = new Place(enteredTitle, selectedImage, pickedLocation);
     onCreatePlace(placeData);
   }
