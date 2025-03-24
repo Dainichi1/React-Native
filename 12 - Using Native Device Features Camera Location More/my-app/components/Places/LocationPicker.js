@@ -1,4 +1,4 @@
-import { Alert, View, StyleSheet, Text } from "react-native";
+import { Alert, View, StyleSheet, Text, Image } from "react-native";
 import OutlinedButton from "../UI/OutlineButton";
 import { Colors } from "../../constants/colors";
 import {
@@ -8,10 +8,29 @@ import {
 } from "expo-location";
 import { useState } from "react";
 import { getMapPreview } from "../../util/location";
-import { useNavigation } from "@react-navigation/native";
+import {
+  useNavigation,
+  useRoute,
+  useIsFocused,
+} from "@react-navigation/native";
+import { useEffect } from "react";
 
 function LocationPicker() {
   const navigation = useNavigation();
+  const route = useRoute();
+
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused && route.params) {
+      const mapPickedLocation = {
+        lat: route.params.pickedLat,
+        lng: route.params.pickedLng,
+      };
+
+      setPickedLocation(mapPickedLocation);
+    }
+  }, [route, isFocused]);
 
   const [pickedLocation, setPickedLocation] = useState();
 
@@ -26,7 +45,7 @@ function LocationPicker() {
       return permissionResponse.granted;
     }
 
-    if (cameraPermissionInformation.status === PermissionStatus.DENIED) {
+    if (locationPermissionInformation.status === PermissionStatus.DENIED) {
       Alert.alert(
         "Insufficient Permissions!",
         "You need to grant location permissions to use this app."
@@ -59,7 +78,7 @@ function LocationPicker() {
     locationPreview = (
       <Image
         style={styles.image}
-        source={{ uri: getMapPreview(pickedLocation.lat.pickedLocation.lng) }}
+        source={{ uri: getMapPreview(pickedLocation.lat, pickedLocation.lng) }}
       />
     );
   }
